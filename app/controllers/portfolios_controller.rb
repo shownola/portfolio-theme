@@ -25,7 +25,7 @@ class PortfoliosController < ApplicationController
   # POST /portfolios.json
   def create
     @portfolio = Portfolio.new(portfolio_params)
-
+    Portfolio.image.attach(params[:portfolio][:image])
     respond_to do |format|
       if @portfolio.save
         format.html { redirect_to @portfolio, notice: 'Portfolio was successfully created.' }
@@ -69,6 +69,6 @@ class PortfoliosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def portfolio_params
-      params.require(:portfolio).permit(:name, :description, :main_image, :thumb_image, :url)
+      params.require(:portfolio).permit(:name, :description, :image, :thumb_image, :url)
     end
 end
